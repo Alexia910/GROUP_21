@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "f49f5ff8-6623-475d-8aa0-1ff92ee55607",
 		"name": "GROUP_21_HW_2",
-		"description": "Postman. HW_2\n\n1) необходимо залогиниться\nPOST\nhttp://162.55.220.72:5005/login\nlogin : str (кроме /)\npassword : str\n\nПриходящий токен необходимо передать во все остальные запросы.\n\n===================\nдальше все запросы требуют наличие токена.\n===================\n\n2) http://162.55.220.72:5005/user_info\nreq. (RAW JSON)\nPOST\nage: int\nsalary: int\nname: str\nauth_token\n\n\nresp.\n{'start_qa_salary':salary,\n 'qa_salary_after_6_months': salary * 2,\n 'qa_salary_after_12_months': salary * 2.9,\n 'person': {'u_name':[user_name, salary, age],\n                                'u_age':age,\n                                'u_salary_1.5_year': salary * 4}\n                                }\n\nТесты:\n1) Статус код 200\n2) Проверка структуры json в ответе.\n3) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.\n4) Достать значение из поля 'u_salary_1.5_year' и передать в поле salary запроса http://162.55.220.72:5005/get_test_user\n===================\n\n3) http://162.55.220.72:5005/new_data\nreq.\nPOST\nage: int\nsalary: int\nname: str\nauth_token\n\nResp.\n{'name':name,\n  'age': int(age),\n  'salary': [salary, str(salary*2), str(salary*3)]}\n\nТесты:\n1) Статус код 200\n2) Проверка структуры json в ответе.\n3) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.\n4) проверить, что 2-й элемент массива salary больше 1-го и 0-го\n===================\n\n4) http://162.55.220.72:5005/test_pet_info\nreq.\nPOST\nage: int\nweight: int\nname: str\nauth_token\n\n\nResp.\n{'name': name,\n 'age': age,\n 'daily_food':weight * 0.012,\n 'daily_sleep': weight * 2.5}\n\n\nТесты:\n1) Статус код 200\n2) Проверка структуры json в ответе.\n3) В ответе указаны коэффициенты умножения weight, напишите тесты по проверке правильности результата перемножения на коэффициент.\n\n===================\n\n5) http://162.55.220.72:5005/get_test_user\nreq.\nPOST\nage: int\nsalary: int\nname: str\nauth_token\n\nResp.\n{'name': name,\n 'age':age,\n 'salary': salary,\n 'family':{'children':[['Alex', 24],['Kate', 12]],\n 'u_salary_1.5_year': salary * 4}\n  }\n\nТесты:\n1) Статус код 200\n2) Проверка структуры json в ответе.\n3) Проверить что занчение поля name = значению переменной name из окружения\n4) Проверить что занчение поля age в ответе соответсвует отправленному в запросе значению поля age\n\n===================\n\n6) http://162.55.220.72:5005/currency\nreq.\nPOST\nauth_token\n\nResp. Передаётся список массив объектов.\n[\n{\"Cur_Abbreviation\": str,\n \"Cur_ID\": int,\n \"Cur_Name\": str\n}\n…\n{\"Cur_Abbreviation\": str,\n \"Cur_ID\": int,\n \"Cur_Name\": str\n}\n]\n\nТесты:\n1) Можете взять любой объект из присланного списка, используйте js random.\nВ объекте возьмите Cur_ID и передать через окружение в следующий запрос.\n\n ===================\n\n7) http://162.55.220.72:5005/curr_byn\nreq.\nPOST\nauth_token\ncurr_code: int\n\nResp.\n{\n    \"Cur_Abbreviation\": str\n    \"Cur_ID\": int,\n    \"Cur_Name\": str,\n    \"Cur_OfficialRate\": float,\n    \"Cur_Scale\": int,\n    \"Date\": str\n}\n\nТесты:\n1) Статус код 200\n2) Проверка структуры json в ответе.\n\n7) http://162.55.220.72:5005/curr_byn req. POST auth_token curr_code: int\n\nResp. { \"Cur_Abbreviation\": str \"Cur_ID\": int, \"Cur_Name\": str, \"Cur_OfficialRate\": float, \"Cur_Scale\": int, \"Date\": str }\n\n1) получить список валют 2) итерировать список валют 3) в каждой итерации отправлять запрос на сервер для получения курса каждой валюты 4) если возвращается 500 код, переходим к следующей итреации 5) если получаем 200 код, проверяем response json на наличие поля \"Cur_OfficialRate\" 6) если поле есть, пишем в консоль инфу про фалюту в виде response { \"Cur_Abbreviation\": str \"Cur_ID\": int, \"Cur_Name\": str, \"Cur_OfficialRate\": float, \"Cur_Scale\": int, \"Date\": str } 7) переходим к следующей итерации\n\n// Число итерация вводить в Cur_ID_max в переменных окружения",
+		"description": "Postman. HW_2\n\n1) необходимо залогиниться\nPOST\nhttp://162.55.220.72:5005/login\nlogin : str (кроме /)\npassword : str\n\nПриходящий токен необходимо передать во все остальные запросы.\n\n===================\nдальше все запросы требуют наличие токена.\n===================\n\n2) http://162.55.220.72:5005/user_info\nreq. (RAW JSON)\nPOST\nage: int\nsalary: int\nname: str\nauth_token\n\n\nresp.\n{'start_qa_salary':salary,\n 'qa_salary_after_6_months': salary * 2,\n 'qa_salary_after_12_months': salary * 2.9,\n 'person': {'u_name':[user_name, salary, age],\n                                'u_age':age,\n                                'u_salary_1.5_year': salary * 4}\n                                }\n\nТесты:\n1) Статус код 200\n2) Проверка структуры json в ответе.\n3) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.\n4) Достать значение из поля 'u_salary_1.5_year' и передать в поле salary запроса http://162.55.220.72:5005/get_test_user\n===================\n\n3) http://162.55.220.72:5005/new_data\nreq.\nPOST\nage: int\nsalary: int\nname: str\nauth_token\n\nResp.\n{'name':name,\n  'age': int(age),\n  'salary': [salary, str(salary*2), str(salary*3)]}\n\nТесты:\n1) Статус код 200\n2) Проверка структуры json в ответе.\n3) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.\n4) проверить, что 2-й элемент массива salary больше 1-го и 0-го\n===================\n\n4) http://162.55.220.72:5005/test_pet_info\nreq.\nPOST\nage: int\nweight: int\nname: str\nauth_token\n\n\nResp.\n{'name': name,\n 'age': age,\n 'daily_food':weight * 0.012,\n 'daily_sleep': weight * 2.5}\n\n\nТесты:\n1) Статус код 200\n2) Проверка структуры json в ответе.\n3) В ответе указаны коэффициенты умножения weight, напишите тесты по проверке правильности результата перемножения на коэффициент.\n\n===================\n\n5) http://162.55.220.72:5005/get_test_user\nreq.\nPOST\nage: int\nsalary: int\nname: str\nauth_token\n\nResp.\n{'name': name,\n 'age':age,\n 'salary': salary,\n 'family':{'children':[['Alex', 24],['Kate', 12]],\n 'u_salary_1.5_year': salary * 4}\n  }\n\nТесты:\n1) Статус код 200\n2) Проверка структуры json в ответе.\n3) Проверить что занчение поля name = значению переменной name из окружения\n4) Проверить что занчение поля age в ответе соответсвует отправленному в запросе значению поля age\n\n===================\n\n6) http://162.55.220.72:5005/currency\nreq.\nPOST\nauth_token\n\nResp. Передаётся список массив объектов.\n[\n{\"Cur_Abbreviation\": str,\n \"Cur_ID\": int,\n \"Cur_Name\": str\n}\n…\n{\"Cur_Abbreviation\": str,\n \"Cur_ID\": int,\n \"Cur_Name\": str\n}\n]\n\nТесты:\n1) Можете взять любой объект из присланного списка, используйте js random.\nВ объекте возьмите Cur_ID и передать через окружение в следующий запрос.\n\n ===================\n\n7) http://162.55.220.72:5005/curr_byn\nreq.\nPOST\nauth_token\ncurr_code: int\n\nResp.\n{\n    \"Cur_Abbreviation\": str\n    \"Cur_ID\": int,\n    \"Cur_Name\": str,\n    \"Cur_OfficialRate\": float,\n    \"Cur_Scale\": int,\n    \"Date\": str\n}\n\nТесты:\n1) Статус код 200\n2) Проверка структуры json в ответе.\n\n//****\n\nResp. { \"Cur_Abbreviation\": str \"Cur_ID\": int, \"Cur_Name\": str, \"Cur_OfficialRate\": float, \"Cur_Scale\": int, \"Date\": str }\n\n1) получить список валют 2) итерировать список валют 3) в каждой итерации отправлять запрос на сервер для получения курса каждой валюты 4) если возвращается 500 код, переходим к следующей итреации 5) если получаем 200 код, проверяем response json на наличие поля \"Cur_OfficialRate\" 6) если поле есть, пишем в консоль инфу про фалюту в виде response { \"Cur_Abbreviation\": str \"Cur_ID\": int, \"Cur_Name\": str, \"Cur_OfficialRate\": float, \"Cur_Scale\": int, \"Date\": str } 7) переходим к следующей итерации\n\n// Число итерация вводить в Cur_ID_max в переменных окружения",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -456,7 +456,7 @@
 			"response": []
 		},
 		{
-			"name": "6_currency",
+			"name": "6_currency_and_list_of_currencies",
 			"event": [
 				{
 					"listen": "test",
@@ -465,7 +465,45 @@
 							"//1) Взять любой объект из присланного списка, используйте js random. В объекте возьмите Cur_ID и передать через окружение в следующий запрос.\r",
 							"var jsonData = pm.response.json();\r",
 							"var rand = jsonData[Math.floor(Math.random() * jsonData.length)];\r",
-							"pm.environment.set(\"Cur_ID\", rand.Cur_ID);"
+							"pm.environment.set(\"Cur_ID\", rand.Cur_ID);\r",
+							"\r",
+							"//***\r",
+							"var leng = jsonData.length\r",
+							"var token = pm.environment.get(\"token\")\r",
+							"var jsonData = pm.response.json();\r",
+							"for (var i = 0; i < leng; i++) {  \r",
+							"    var id = jsonData[i].Cur_ID\r",
+							"    var requestObject = {\r",
+							"    \"async\":true,\r",
+							"    \"url\":\"http://162.55.220.72:5005/curr_byn\",\r",
+							"    \"method\":\"POST\",\r",
+							"    \"body\":{\r",
+							"        \"mode\":\"formdata\",\r",
+							"        \"formdata\":[{\r",
+							"            \"key\":\"auth_token\",\r",
+							"            \"value\":token,\r",
+							"            \"type\":\"string\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"key\":\"curr_code\",\r",
+							"            \"value\":id,\r",
+							"            \"type\":\"string\"\r",
+							"    }]\r",
+							"    }\r",
+							"    }\r",
+							"    pm.sendRequest(requestObject, function (err, res) {\r",
+							"    if (res.code==500) {\r",
+							"    } else {\r",
+							"        if (res.code==200) {\r",
+							"            var Data = res.json();\r",
+							"            if (typeof Data.Cur_OfficialRate == \"undefined\") {\r",
+							"            } else {\r",
+							"            console.log(Data)\r",
+							"            }\r",
+							"        }\r",
+							"        }\r",
+							"    })\r",
+							"}"
 						],
 						"type": "text/javascript"
 					}
@@ -554,75 +592,6 @@
 						{
 							"key": "curr_code",
 							"value": "{{Cur_ID}}",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{url}}curr_byn",
-					"host": [
-						"{{url}}curr_byn"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "7_curr_byn_list of currencies",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"// Итерация списка валют и вывод в консоль\r",
-							"// Число итерация вводить в Cur_ID_max в переменных окружения\r",
-							"// Если итерация списка валют и вывод в консоль в виде строки JSON, то  поменять строку console.log(jsonData) на сonsole.log(JSON.stringify(jsonData))\r",
-							"var value = pm.environment.get(\"Cur_ID_actual\")\r",
-							"var Cur_ID_max = pm.environment.get(\"Cur_ID_max\")\r",
-							"var Cur_ID_min = pm.environment.get(\"Cur_ID_min\")\r",
-							"if (value < (Cur_ID_max+1)) {\r",
-							"if (pm.response.code==500) {\r",
-							"} else {\r",
-							"    if (pm.response.code==200) {\r",
-							"        var jsonData = pm.response.json();\r",
-							"        if (typeof jsonData.Cur_OfficialRate == \"undefined\") {\r",
-							"        } else {\r",
-							"        console.log(jsonData)\r",
-							"        }\r",
-							"    }\r",
-							"}\r",
-							"if (value == Cur_ID_max) {\r",
-							"    postman.setNextRequest(null)\r",
-							"    pm.environment.set(\"Cur_ID_actual\", Cur_ID_min);\r",
-							"    } else {\r",
-							"    pm.environment.set(\"Cur_ID_actual\", parseInt(value) + 1)\r",
-							"    postman.setNextRequest(\"7_curr_byn_list of currencies\")\r",
-							"    }\r",
-							"} else {\r",
-							"postman.setNextRequest(null)\r",
-							"}\r",
-							"\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "auth_token",
-							"value": "{{token}}",
-							"type": "text"
-						},
-						{
-							"key": "curr_code",
-							"value": "{{Cur_ID_actual}}",
 							"type": "text"
 						}
 					]
