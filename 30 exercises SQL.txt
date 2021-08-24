@@ -162,7 +162,106 @@ laptop
 JOIN
 product
 ON laptop.model = product.model
-WHERE laptop.speed < ALL(SELECT speed FROM PC)
+WHERE laptop.speed < ALL(SELECT speed FROM pc)
 __________________________________________
 Задание: 18 (Serge I: 2003-02-03)
 Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price
+
+SELECT DISTINCT product.maker, printer.price
+FROM 
+printer
+JOIN
+product
+ON printer.model = product.model
+WHERE color = 'y' AND price = (SELECT MIN(price) FROM printer WHERE color = 'y')
+__________________________________________
+Задание: 19 (Serge I: 2003-02-13)
+Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов.
+Вывести: maker, средний размер экрана.
+
+SELECT product.maker, AVG(screen) AS avg_screen
+FROM 
+laptop
+JOIN
+product
+ON product.model = laptop.model
+GROUP BY maker
+_________________________________________
+Задание: 20 (Serge I: 2003-02-13)
+Найдите производителей, выпускающих по меньшей мере три различных модели ПК. Вывести: Maker, число моделей ПК.
+SELECT maker, COUNT(model) AS number_of_models
+FROM product
+WHERE type = 'pc' 
+GROUP BY maker
+HAVING COUNT(model) >= 3
+_________________________________________
+Задание: 21 (Serge I: 2003-02-13)
+Найдите максимальную цену ПК, выпускаемых каждым производителем, у которого есть модели в таблице PC.
+Вывести: maker, максимальная цена.
+
+SELECT DISTINCT product.maker, MAX(price) AS max_price
+FROM 
+pc
+JOIN
+product
+ON pc.model = product.model
+WHERE type = 'pc'
+GROUP BY maker
+_______________________________________
+Задание: 22 (Serge I: 2003-02-13)
+Для каждого значения скорости ПК, превышающего 600 МГц, определите среднюю цену ПК с такой же скоростью. Вывести: speed, средняя цена.
+
+SELECT speed, AVG(price) AS avg_price
+FROM pc
+GROUP BY speed
+HAVING speed > 600
+________________________________________
+Задание: 23 (Serge I: 2003-02-14)
+Найдите производителей, которые производили бы как ПК
+со скоростью не менее 750 МГц, так и ПК-блокноты со скоростью не менее 750 МГц.
+Вывести: Maker
+
+SELECT maker
+FROM
+pc
+INNER JOIN
+product
+ON product.model = pc.model
+WHERE speed >= 750
+INTERSECT
+SELECT maker
+FROM
+laptop
+INNER JOIN
+product
+ON product.model = laptop.model
+WHERE speed >= 750
+______________________________________
+Задание: 24 (Serge I: 2003-02-03)
+Перечислите номера моделей любых типов, имеющих самую высокую цену по всей имеющейся в базе данных продукции.
+
+WITH big_tab AS (SELECT model, price FROM pc
+WHERE price=(SELECT MAX(price) FROM pc)
+UNION
+SELECT model, price FROM Laptop
+WHERE price=(SELECT MAX(price) FROM Laptop)
+UNION
+SELECT model, price FROM Printer
+WHERE price=(SELECT MAX(price) FROM Printer)
+)
+SELECT model FROM big_tab 
+WHERE price=(SELECT MAX(price) FROM big_tab)
+______________________________________
+Задание: 25 (Serge I: 2003-02-14)
+Найдите производителей принтеров, которые производят ПК с наименьшим объемом RAM и с самым быстрым процессором среди всех ПК, имеющих наименьший объем RAM. Вывести: Maker
+
+SELECT DISTINCT maker
+FROM product
+WHERE 
+maker IN (SELECT maker FROM product WHERE type = 'Printer')
+AND
+model IN 
+(SELECT model FROM pc WHERE ram = (SELECT MIN(ram) FROM pc) AND speed = (SELECT MAX(speed) FROM pc WHERE ram = (SELECT MIN(ram) FROM pc)))
+______________________________________
+Задание: 26 (Serge I: 2003-02-14)
+Найдите среднюю цену ПК и ПК-блокнотов, выпущенных производителем A (латинская буква). Вывести: одна общая средняя цена.
